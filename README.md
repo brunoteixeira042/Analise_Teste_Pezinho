@@ -7,8 +7,8 @@ Este projeto visa analisar os dados do Teste do Pezinho para identificar gargalo
 | Notebook | Foco da Análise | Principais Insights |
 | :--- | :--- | :--- |
 | **`Analise1.ipynb`** | **Cancelamentos e Motivos** | Taxa de cancelamento de 0.11%. A maioria dos motivos não é documentada. Forte concentração em São Luís (21%).<br>⚠️ *Nota: A análise por profissão apresenta dados parciais por falta de tabela de usuários.* |
-| **`Analise2_Otimizada.ipynb`** | **Idade na Coleta** | Análise do tempo entre Nascimento e Coleta (Ideal: 3-5 dias). Verifica impacto do dia da semana na coleta. |
-| **`Analise3_Logistica_Real.ipynb`** | **Logística de Transporte** | **Novo!** Foco no tempo de estrada (Coleta → Chegada no Lab). Identifica municípios com maiores atrasos e correlação com rejeição de amostras. |
+| **`Analise2.ipynb`** | **Idade na Coleta** | Análise do tempo entre Nascimento e Coleta (Ideal: 3-5 dias). Verifica impacto do dia da semana na coleta. |
+| **`Analise3.ipynb`** | **Logística de Transporte** | **Novo!** Foco no tempo de estrada (Coleta → Chegada no Lab). Identifica municípios com maiores atrasos e correlação com rejeição de amostras. |
 
 ---
 

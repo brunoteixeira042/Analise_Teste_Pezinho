@@ -8,4 +8,5 @@ __pycache__/
 # Datasets (Tables)
 datasets1/
 datasets2/
+modulos/
 *.csv
