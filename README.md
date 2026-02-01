@@ -1,41 +1,49 @@
-## Análise de Dados do Teste do Pezinho(Qualidade das amostras)
+# Análise de Dados do Teste do Pezinho (Qualidade e Logística)
 
-###  Fonte dos Dados
+Este projeto visa analisar os dados do Teste do Pezinho para identificar gargalos operacionais, logísticos e de qualidade nas amostras coletadas no estado.
 
-A análise utiliza um conjunto de cinco arquivos CSV:
+## 📂 Estrutura do Projeto e Notebooks
 
--   `tb_amostra.csv`: Tabela principal contendo os registros de cada amostra coletada.
--   `tb_motivo_inadequacao.csv`: Tabela de catálogo com as descrições dos motivos de inadequação.
--   `tb_ms_motivo_inadequacao.csv`: Tabela de ligação entre as amostras e os motivos de inadequação.
--   `tb_municipio.csv`: Tabela com informações sobre os municípios.
--   `tb_unidade_saude.csv`: Tabela com dados das unidades de saúde onde as coletas foram realizadas.
+| Notebook | Foco da Análise | Principais Insights |
+| :--- | :--- | :--- |
+| **`Analise1.ipynb`** | **Cancelamentos e Motivos** | Taxa de cancelamento de 0.11%. A maioria dos motivos não é documentada. Forte concentração em São Luís (21%).<br>⚠️ *Nota: A análise por profissão apresenta dados parciais por falta de tabela de usuários.* |
+| **`Analise2_Otimizada.ipynb`** | **Idade na Coleta** | Análise do tempo entre Nascimento e Coleta (Ideal: 3-5 dias). Verifica impacto do dia da semana na coleta. |
+| **`Analise3_Logistica_Real.ipynb`** | **Logística de Transporte** | **Novo!** Foco no tempo de estrada (Coleta → Chegada no Lab). Identifica municípios com maiores atrasos e correlação com rejeição de amostras. |
 
-### ⚙️ Passos da Análise
+---
 
-O processo de análise foi estruturado da seguinte forma:
+## 📊 Detalhes das Análises
 
-1.  **Configuração do Ambiente**: Importação das bibliotecas necessárias para a análise, como `pandas`, `matplotlib` e `seaborn`.
-2.  **Carregamento dos Dados**: Leitura dos cinco arquivos CSV para DataFrames do `pandas`.
-3.  **Análise de Cancelamentos**:
-    *   Identificação das amostras canceladas (taxa de 0.11% do total).
-    *   Análise de quem são os usuários que mais realizam cancelamentos.
-4.  **Investigação dos Motivos de Inadequação**:
-    *   Tentativa de cruzar as amostras canceladas com seus respectivos motivos.
-    *   **Principal achado**: A grande maioria das amostras canceladas (cerca de 97%) não possui um motivo de cancelamento registrado no sistema, o que indica uma falha importante no processo de documentação.
-5.  **Análise Geográfica**:
-    *   Cruzamento dos dados de cancelamento com as unidades de saúde e os municípios.
-    *   Identificação das unidades de saúde e municípios com maior número de cancelamentos.
-    *   Visualização dos dados em gráficos de barras e de pizza para ilustrar a concentração geográfica.
+### 1. Qualidade da Amostra (Analise 1)
+- **Foco**: Amostras recusadas/canceladas.
+- **Achados**:
+    - Grande subnotificação de motivos de cancelamento (97% sem motivo claro).
+    - Discrepâncias regionais significativas.
 
-### 📊 Principais Insights e Conclusões
+### 2. Eficiência da Coleta (Analise 2)
+- **Foco**: O quão cedo o bebê é testado.
+- **KPI**: Delta (`Data Coleta` - `Data Nascimento`).
+- **Classificação**: Precoce (<3 dias), Ideal (3-5 dias), Tardio (>5 dias).
 
--   **Falta de Documentação**: O principal problema identificado é a ausência de registro dos motivos para a maioria dos cancelamentos, dificultando a análise da causa raiz.
--   **Concentração Geográfica**: Os cancelamentos não são distribuídos uniformemente. Há uma forte concentração em alguns municípios, com destaque para **São Luís**, que representa mais de 21% de todas as amostras canceladas.
--   **Ação Recomendada**: A análise sugere que fatores locais (como treinamento, processos ou infraestrutura) em municípios específicos podem estar influenciando diretamente a taxa de cancelamento. Uma investigação mais aprofundada nessas localidades é recomendada.
+### 3. Eficiência Logística (Analise 3)
+- **Foco**: O tempo que a amostra passa em trânsito.
+- **KPI**: Delta (`Data Recebimento` - `Data Coleta`).
+- **Hipótese Confirmada**: Amostras com tempo de transporte elevado apresentam maior taxa de inadequação (hemólise/envelhecimento).
+- **Ranking**: Lista de municípios críticos que necessitam de rotas de transporte revisadas.
 
-### 🛠️ Tecnologias Utilizadas
+---
 
--   **Python**: Linguagem de programação.
--   **Pandas**: Para manipulação e análise dos dados.
--   **Matplotlib & Seaborn**: Para a criação das visualizações gráficas.
--   **Jupyter Notebook**: Como ambiente de desenvolvimento interativo.
+## 💾 Fonte dos Dados
+Os dados estão organizados na pasta `datasets1` e incluem:
+- `tb_amostra.csv`: Tabela fato com datas cruciais (Coleta, Recebimento, Cadastro).
+- `tb_municipio.csv` / `tb_unidade_saude.csv`: Dimensões geográficas.
+- `tb_motivo_inadequacao.csv`: Catálogo de motivos de rejeição.
+
+## ⚠️ Limitações Conhecidas
+- **Análise por Profissional**: A tentativa de analisar a performance por profissional de saúde (`Analise1`) foi prejudicada pela ausência de uma tabela que vincule o login do usuário (`aut_registro`) ao seu cadastro profissional. Apenas 7 profissionais puderam ser mapeados.
+
+## 🛠️ Tecnologias
+- **Python 3.8+**
+- **Pandas**: Processamento e ETL.
+- **Seaborn / Matplotlib**: Visualização de dados.
+- **Jupyter**: Ambiente de execução.

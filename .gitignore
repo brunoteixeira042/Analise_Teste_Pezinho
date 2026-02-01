@@ -1,3 +1,11 @@
-Teste_do_pezinho/antigo
-Teste_do_pezinho/.ipynb_checkpoints
-Teste_do_pezinho/datasets2/tb_pessoa.csvdatasets2/tb_pessoa.csv
+# Jupyter Checkpoints
+.ipynb_checkpoints/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Datasets (Tables)
+datasets1/
+datasets2/
+*.csv
